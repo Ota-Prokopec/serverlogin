@@ -1,0 +1,20 @@
+
+
+
+{
+  "ludvík":{"a1":{"background0":"blue",
+                  "background1":"blue",
+                   "right":"left",
+                   "text1":"ahoj",
+                   "text2":"ahoj",
+                   "otazka":"ahoj",
+                   }
+            "a2": {"background0":"blue",
+                   "background1":"blue",
+                 "right":"left",
+                   "text1":"ahoj",
+                   "text2":"ahoj",
+                   "otazka":"ahoj",
+                             }
+                 }
+}

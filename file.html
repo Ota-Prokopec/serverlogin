@@ -5,7 +5,11 @@
     <title></title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="isacountindatabase.js" charset="utf-8"></script>
+    <script src="ucet.js" defer charset="utf-8"></script>
+    <script src="log__in.js" defer charset="utf-8"></script>
     <script src="connect.js" defer charset="utf-8"></script>
+    <script src="delete.js" defer charset="utf-8"></script>
     <link rel="stylesheet" defer href="css.css">
     <script src="options.js" defer charset="utf-8"></script>
     <script src="getacount.js" defer charset="utf-8"></script>
@@ -35,10 +39,20 @@
 
               <div id="cardplay" class="cardplay">
 
+
+
                 <div id="logScreen" class="login">
 
-                  <input type="text" placeholder="user name" name="" value="">
-                  <input type="passord" placeholder="password" name="" value="">
+                  <div id="user" class="user">
+
+                    <div id="delete" class="delete"></div>
+
+                    <span class="user__name" id="user__name" ></span>
+
+                  </div>
+
+                  <input type="text" id="nameToLogIn" placeholder="user name" name="" value="">
+                  <input type="password" id="passwordToLogIn" placeholder="password" name="" value="">
                   <button type="button" id="loginbutton"  name="button">log in</button>
 
                 </div>

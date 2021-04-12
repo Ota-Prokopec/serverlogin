@@ -246,7 +246,7 @@ io.on('connection', function(socket) {
 
 
 
-             })})
+             })//})
 
              function createNewAcount(data) {
 
@@ -266,7 +266,7 @@ io.on('connection', function(socket) {
 
 
           //is name in database
-          io.on('isNotThisNameInDatabase', function(socket) {
+          /*io.on('isNotThisNameInDatabase', function(socket) {
               socket.on('createAcount', function(name) {
 
 
@@ -287,7 +287,7 @@ io.on('connection', function(socket) {
 
                        })
 
-              })})
+              })})*/
 
 
 
@@ -300,3 +300,19 @@ io.on('connection', function(socket) {
 
 
               }
+
+
+
+              //delete
+                    socket.on('delete', function(name) {
+
+                    readFile(file).then((data, errors) => {
+
+                      data.acount[name] = undefined;
+                      writeFile(file, data)
+
+
+
+
+                  })})
+                })
