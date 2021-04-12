@@ -1,0 +1,146 @@
+body {
+  margin: 0;
+  padding: 0;
+
+
+
+}
+button {
+  /*if i am login this opacity will 0.8*/
+  position: absolute;
+  display: ;
+  top: 90vh;
+  background: grey;
+  opacity: 1;
+  box-shadow: 0px 0px 4px red;
+  border: none;
+  font-size: 4vw;
+  left: calc(50vw - 12vw);
+  height: 10vh;
+  width: 24vw;
+}
+.cardplay {
+  display:
+}
+
+
+.loginput {
+  display: ;
+}
+.buttonforexitback {
+
+  height: 25vh;
+  width: 50vw;
+  position: absolute;
+  display: flex;
+  border-radius: 14%;
+  box-shadow: 14px 14px 14px lightblue inset, -44px -44px 44px lightblue inset;
+  text-align: center;
+  font-size: 4vw;
+  background: red
+
+}
+div.log {
+  height: 100%;
+  width: 100%;
+  display: inline-grid;
+  justify-content: center;
+  align-items: center;
+}
+.wraplogin {
+  height: 75%;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  display: none;
+  background: lightblue;
+}
+* {
+  font-size: 4vw;
+}
+.wrap {
+  display: flex;
+  height: 100vh;
+  width: 100vw;overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+
+}
+.otazka {
+  position: absolute;
+  overflow: auto;
+  font-size: 4vw;
+  color: #000;
+  z-index: 2;
+  word-break: break-all;
+  height: 15%;
+  width: 74%;
+  top: calc(10%);
+  text-align: center;
+  background: ;
+}
+.login {
+  height:
+}
+.login {
+  height: 15vw;
+  width: 100vw;
+  z-index: 2;
+
+  display: flex;
+  display: inline-flex;
+  background: ;
+  position: relative;
+  top:calc(-50vh + 4vh);
+}
+input {
+  height: calc(10vh);
+  width: 50vw;
+  position: relative;
+  display: inline-block;
+}
+.middleOfCard {
+  display: flex;
+  height: calc(10vw + 55vh);
+  top:calc(15vh);
+  width: 95%;
+  background: #fff;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.card {
+  height: 34vh;
+  width: calc(45vw);
+  background: red;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -14px;
+
+}
+.wraplogin {
+
+}
+.text {
+  position: relative;
+  text-align: center;
+  height: 14vh;
+  width: 45vw;
+  overflow: auto;
+  top: -74%;
+  display: flex
+}
+#card0 {
+  left: -14px;
+
+
+  background: lightgreen
+}
+#card1 {
+  left:14px;
+  background: red;
+}
