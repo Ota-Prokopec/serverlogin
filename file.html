@@ -3,12 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="connect.js"  charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="start.js" defer charset="utf-8"></script>
     <script src="isacountindatabase.js" charset="utf-8"></script>
     <script src="ucet.js" defer charset="utf-8"></script>
     <script src="log__in.js" defer charset="utf-8"></script>
-    <script src="connect.js" defer charset="utf-8"></script>
+    <script src="createQuestion.js" defer charset="utf-8"></script>
     <script src="delete.js" defer charset="utf-8"></script>
     <link rel="stylesheet" defer href="css.css">
     <script src="options.js" defer charset="utf-8"></script>
@@ -41,19 +43,45 @@
 
 
 
+
+
+
+
+
+
+                   <div id="startplay" class="startplay">
+
+                   </div>
+
+
+
+
+
                 <div id="logScreen" class="login">
+
+                  <div id="ucet" class="ucet">
+
+                    <i class="" ></i>
+                    <div id="nameforlog" class="nameforlog"></div>
+                    <input type="text" id="questionToDoClick" class="questionToDoClick"></input>
+                    <div id="delete" class="delete">fadsfasdf</div>
+
+                  </div>
 
                   <div id="user" class="user">
 
                     <div id="delete" class="delete"></div>
 
+
                     <span class="user__name" id="user__name" ></span>
 
                   </div>
 
-                  <input type="text" id="nameToLogIn" placeholder="user name" name="" value="">
-                  <input type="password" id="passwordToLogIn" placeholder="password" name="" value="">
-                  <button type="button" id="loginbutton"  name="button">log in</button>
+
+                                <input type="text" id="nameToLogIn" class="relative" placeholder="user name" name="" value="">
+                                <input type="text" id="passwordToLogIn" class="relative" placeholder="password" name="" value="">
+                                <button type="button" id="loginbutton" class="ab"  name="button">log in</button>
+
 
                 </div>
 
@@ -61,11 +89,11 @@
 
                   <div id="cardScreen" class="middleOfCard">
 
-                    <div id="otazka" class="otazka">Jakpak se jmenuji</div>
+                    <textarea id="otazka" class="otazka"></textarea>
 
 
-                    <div id="card0" class="card"> <div class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div> </div>
-                    <div id="card1" class="card"> <div class="text">ahoj</div> </div>
+                    <div id="card0"pos="0" class="card"><input type="text" id="i0" class="ip" pos="0" name="" value=""> <textarea class="text" id="text0"></textarea> </div>
+                    <div id="card1"pos="1" class="card"><input type="text" id="i1" class="ip" pos="1" name="" value=""> <textarea class="text" id="text1"></textarea> </div>
 
                   </div>
 

@@ -5,6 +5,7 @@ body {
 
 
 }
+
 .user {
   display: none;
   height: 100%;
@@ -16,7 +17,7 @@ body {
   height: 4vh;
   width: 4vh;
   background: red;
-  position: relative;
+  position: absolute;
   left:calc(50% - 4vh);
   display: flex;
   z-index: 14;
@@ -40,6 +41,44 @@ body {
 
 
 }
+.nameforlog {
+
+}
+.startplay {
+  height: 4vw;
+  width: 4vw;
+  background: red;
+  position: absolute;
+  z-index: 4;
+  top:calc(10vh);
+  left:0;
+}
+.ucet {
+  height: 100%;
+  width: 75%;
+  display: none;
+  z-index: 4;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  left:-3%;
+}
+.delete {
+  height: 14vw;
+  width: 14vw;
+  background: red;
+  z-index: 4;
+  position: absolute;
+  display: flex;
+  left: 75vw;
+
+
+}
+.relative {
+  position: relative;
+}
+
 button {
   /*if i am login this opacity will 0.8*/
   position: absolute;
@@ -102,6 +141,11 @@ div.log {
   background: #000;
 
 }
+.ip {
+  position: absolute;
+  height: 4vh;
+  top: 0;
+}
 .otazka {
   position: absolute;
   overflow: auto;
@@ -110,8 +154,8 @@ div.log {
   z-index: 2;
   word-break: break-all;
   height: 15%;
-  width: 74%;
-  top: calc(10%);
+  width: 50vw;
+  top:0;
   text-align: center;
   background: ;
 }
@@ -125,6 +169,7 @@ div.log {
 
   display: flex;
   display: inline-flex;
+  left: 3%;
   align-items: center;
   justify-content: center;
   background: ;
@@ -137,13 +182,19 @@ input {
   position: relative;
   display: inline-block;
 }
+.ab {
+  position: absolute;
+}
 .middleOfCard {
   display: flex;
   height: calc(10vw + 55vh);
   top:calc(15vh);
+
   width: 95%;
   background: #fff;
   position: absolute;
+
+  left: 3%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -171,6 +222,18 @@ input {
   top: -74%;
   display: flex
 }
+.questionToDoClick {
+  text-align: center;
+  height: 4vw;
+  width: 100vw;
+  background: ;
+  position: relative;
+  top:10vh;
+  font-size: 4vw;
+  color:;
+  display: grid;
+  z-index: 14;
+}
 #card0 {
   left: -14px;
 
@@ -180,4 +243,7 @@ input {
 #card1 {
   left:14px;
   background: red;
+}
+.middleOfCard {
+  display:none
 }

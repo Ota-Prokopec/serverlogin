@@ -1,81 +1,45 @@
 
 
 
-
-
-
-
 window.addEventListener("keypress", () => {
   if (event.key === "Enter") {
 
-    isAcountRight();
+    logIn();
 
   }
 })
+function logIn() {
 
-function isAcountRight() {
+  console.log("ahoj");
 
-  //get input
-  const name = document.getElementById("getName").value;
-  console.log(name.length);
-  const password0 = document.getElementById("password0").value;
-  const password1 = document.getElementById("password1").value;
+  const name = document.getElementById("getName").value
+  const password0 = document.getElementById("password0").value
+  const password1 = document.getElementById("password1").value
 
-  isnotthisaccountindatabase(name);
-
-
-
-////////////promise
-
-
-    databasepromise.then((canI) => {
-
-      console.log(canI);
-
-      if (canI.value) {
-
-        if (name !== "" && password0 !== "" && password1 !== "" && password0 === password1 && name.length > 4 && password0.length > 4) {
-          console.log(name, password1, password0, options.name.delka);
-
-          createAcount(name, password0);
-
-        }
-
-      }
-      else {
-
-        console.log("this name is at database you must have another name");
-        /*
-             acount was written you must do another acouunt
-        */
-      }
-
-    });
+  if (name.length > options.name.delka && password0 === password1) {
 
 
 
+    console.log("socket");
 
 
 
+    socket.emit('login', name, password0);
 
-
-////////////
+  }
 
 
 
 }
-function createAcount(name, password) {
-
-  console.log(name);
 
 
+socket.on("amILog", function (data) {
 
-  socket.emit('createAcount', {
-     name:name,
-     password:password
-  });
+  if (data) {
+    console.log("i am log database");
+  }
+  else {
+    console.log("this name already was in database you can have another name");
+  }
 
-
-
-}
-// acount
+})
