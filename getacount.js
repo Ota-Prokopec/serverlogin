@@ -4,7 +4,12 @@
 window.addEventListener("keypress", () => {
   if (event.key === "Enter") {
 
-    logIn();
+    if (document.getElementById("getName").value !== "") {
+
+      logIn();
+
+    }
+
 
   }
 })
@@ -23,8 +28,12 @@ function logIn() {
     console.log("socket");
 
 
-
     socket.emit('login', name, password0);
+
+  }
+  else {
+
+    errors(err.delka);
 
   }
 
@@ -39,6 +48,8 @@ socket.on("amILog", function (data) {
     console.log("i am log database");
   }
   else {
+
+    errors(err.acounthasbeenindatabase)
     console.log("this name already was in database you can have another name");
   }
 

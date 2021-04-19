@@ -44,14 +44,45 @@ body {
 .nameforlog {
 
 }
-.startplay {
+.error {
+  display: grid;
+  height: 44px;
+  width: 75vw;
+  background: none;
+
+  color: red;
+  font-size: 4vw;
+  position: absolute;
+
+  left:calc(50vw - 75vw/2);
+
+
+}
+.score {
   height: 4vw;
   width: 4vw;
   background: red;
   position: absolute;
-  z-index: 4;
+  z-index: 14;
   top:calc(10vh);
   left:0;
+}
+.item {
+  height: 10%;
+  width: 100%;
+  display: inline-grid;
+  text-align: center;
+  font-size: 4vw;
+}
+.arrayscore {
+  height: 50vh;
+  width: 50vw;
+  background: white;
+  position: absolute;
+  overflow: auto;
+  left:calc(50vw - 25vw);
+  top: calc(50vh - 25vh);
+  display: none
 }
 .ucet {
   height: 100%;
@@ -108,10 +139,8 @@ button {
   position: absolute;
   display: flex;
   border-radius: 14%;
-  box-shadow: 14px 14px 14px lightblue inset, -44px -44px 44px lightblue inset;
   text-align: center;
-  font-size: 4vw;
-  background: red
+  font-size: 10vw;
 
 }
 div.log {
@@ -127,7 +156,7 @@ div.log {
   align-items: center;
   width: 75%;
   display: none;
-  background: lightblue;
+  background: lightgreen;
 }
 * {
   font-size: 4vw;

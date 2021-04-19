@@ -3,12 +3,25 @@
 
 socket.on("completequestion", function (data) {
 
+  console.log(data);
+
   if (data === false) {
-    console.log("tento účet není");
+    errors(err.acount)
   }
   else {
-    createQuiz(data)
+
+    if (data === "youAlreadyDidThis") {
+      errors(err.did)
+
+    }
+
+    else {
+
+      createQuiz(data)
+
+    }
   }
+
 
 
 })
@@ -34,22 +47,28 @@ function startQuiz(data) {
 
                  if (Array.isArray(data)) {
 
+                      console.log("this is array", data);
+
                   writeForQuizToInput(data[localvarriableforloopdata])
-                  youclickforquiz(data[localvarriableforloopdata].side);
+                  youclickforquiz(data[localvarriableforloopdata].side, data);
 
                  }
                  else {
 
+                 console.log("this is not array", data);
+
                  writeForQuizToInput(data)
 
-                 youclickforquiz(data.side);
+                 youclickforquiz(data.side, undefined);
 
                  }
 
 }
 
 
-function youclickforquiz(data) {
+function youclickforquiz(data, value) {
+
+  console.log(value, localvarriableforloopdata);
 
 
   let strana = 0;
@@ -60,6 +79,12 @@ function youclickforquiz(data) {
   card0.addEventListener("click", function () {
 
       check(0);
+      if (value !== undefined) {
+
+        next(value);
+
+      }
+
 
   })
 
@@ -67,6 +92,12 @@ function youclickforquiz(data) {
   card1.addEventListener("click", function () {
 
      check(1);
+     if (value !== undefined) {
+
+       next(value);
+
+     }
+
 
   })
 
@@ -75,20 +106,91 @@ function youclickforquiz(data) {
 
 
 
+function konec() {
+
+  const card = document.getElementById("cardScreen")
+  card.style.display = "none"
+  errors("you have " + scores.bad + " badly " + "and " + scores.good + " well")
+
+
+}
+
+
+
+
+
+
+// is equl localvarriableforloopdata with value.side question konec
+
+function next(value) {
+
+
+  if (value !== undefined) {
+
+    if (localvarriableforloopdata > value[localvarriableforloopdata].side-1) {
+
+
+
+      localvarriableforloopdata ++ ;
+
+      startQuiz(value);
+
+    }
+    else {
+      konec();
+    }
+
+  }
+
+         //deleteinput();
+
+}
+
+
+let scores = {
+  bad:0,
+  good:0
+}
 
       function check(value) {
 
 
         if (data == value) {
 
+          reknimiscore(true);
+
+          scores.good ++;
+
           console.log(true);
 
         }
         else {
+
+          reknimiscore(false);
+
+          scores.bad ++;
           console.log(false);
         }
 
       }
+
+
+
+
+
+
+
+          function reknimiscore(i) {
+
+            if (Array.isArray(value)) {
+              socket.emit("score", {password:userdata.password,kdo:userdata.name, komu:value[localvarriableforloopdata].name, file:value[localvarriableforloopdata].nameOfQuestion, question:value[localvarriableforloopdata].question, i:i});
+            }
+            else {
+              socket.emit("score", {kdo:userdata.name, komu:value.name, file:value.nameOfQuestion, question:value.question, i:i, password:userdata.password});
+            }
+
+
+          }
 
 
 }
@@ -97,7 +199,7 @@ function youclickforquiz(data) {
 
 function writeForQuizToInput(data) {
 
-  console.log("ahoj");
+  console.log(data);
 
   const otazka = document.getElementById("otazka")
   const answer0 = document.getElementById("text0")
@@ -113,10 +215,10 @@ function writeForQuizToInput(data) {
   img0.style.display = "none"
   img1.style.display = "none";
 
-  if (data.background0 !== "" && data.background1 !== "") {
+  if (data.img0 !== "" && data.img1 !== "") {
 
-    background0.style.backgroundImage = `url(${data.background0})`
-    background1.style.backgroundImage = `url(${data.background1})`
+    background0.style.backgroundImage = `url(${data.img0})`
+    background1.style.backgroundImage = `url(${data.img1})`
 
   }
 
