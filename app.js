@@ -7,6 +7,7 @@ var path = require('path');
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 var Promise = require('promise');
+const url = require("url")
 
 // create sql
 const pool  = mysql.createPool({
@@ -48,7 +49,7 @@ let waitforpasname;
 
 io.on('connection', function(socket) {
 
- console.log("connection");
+ ////console.log("connection");
 
 
 
@@ -58,13 +59,13 @@ io.on('connection', function(socket) {
 socket.on('login', function(name, password) {
 
 
-  console.log(password, name);
+  ////console.log(password, name);
 
 
 
-             get("user", "id", name).then((data) => {
+             get("user", "id = ?", name).then((data) => {
 
-               //console.log(data[0], "ahoj");
+               //////console.log(data[0], "ahoj");
 
                if (data[0] === undefined) {
 
@@ -75,14 +76,14 @@ socket.on('login', function(name, password) {
 
                  });
 
-                 console.log("you are loged true");
+                 ////console.log("you are loged true");
 
                  send("amILog", true)
 
                }
                else {
 
-                        console.log("this acount has been loged before you");
+                        ////console.log("this acount has been loged before you");
 
                  send("amILog", false);
 
@@ -104,13 +105,19 @@ socket.on("delete", function (user) {
 
      checkpassword(user.name, user.password).then((data) => {
 
-       console.log(data);
+       ////console.log(data);
 
        if (data) {
 
          deleteuser("user", "id", user.name)
 
+         send("isdelete", true)
+
        }
+       else {
+         send("isdelete", false)
+       }
+
 
      })
 
@@ -125,7 +132,7 @@ socket.on('prihlasit', function(name, password) {
 
          checkpassword(name, password).then((data) => {
 
-           console.log(data);
+           ////console.log(data);
 
            if (data !== false) {
 
@@ -155,7 +162,28 @@ socket.on('prihlasit', function(name, password) {
 
 
 
+                     // get score
+                     socket.on("score", function (data) {
 
+                       checkpassword(data.kdo, data.password).then((password) => {
+
+                         if (password) {
+                           adddatabase("answer", {
+
+                             kdo:data.kdo,
+                             komu:data.komu,
+                             hodnota:data.i,
+                             jmenoslozky:data.file,
+                             otazka:data.question
+
+                           })
+                         }
+
+                       })
+
+
+
+                     })
 
 
 
@@ -167,6 +195,207 @@ socket.on('prihlasit', function(name, password) {
             socket.emit(inf, value);
 
           }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//show score
+
+
+
+
+
+  socket.on("score", (data) => {
+
+    checkpassword(data.name, data.password).then((password) => {
+
+      if (password) {
+
+        get("answer", "komu = ?", [data.name]).then((userdata) => {
+
+
+
+
+
+          send("answerOutput", userdata)
+
+        })
+
+      }
+
+    })
+
+  })
+
+
+
+
+
+
+socket.on("share", (data) => {
+
+  checkpassword(data.name, data.password).then((password, e) => {
+
+
+
+    if (password) {
+
+      get("data", "name = ?", [data.name]).then((share) => {
+
+        console.log(share);
+
+        send("fullDatabseForShare", share)
+
+      })
+
+    }
+
+  })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                       //first char big letter
+  const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
+
+//note//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//complite question
+function completequestion(name, id, username) {
+
+  let canIDoQuiz = true;
+
+  //console.log(name, id, username);
+
+  get("answer", "komu = ?", [name]).then((udelal) => {
+
+
+    for (let pos = 0; pos < udelal.length; pos ++) {
+
+
+
+      if (udelal[pos].kdo === username && udelal[pos].jmenoslozky === id) {
+        canIDoQuiz = false;
+        //return;
+      }
+
+
+
+    }
+
+    //console.log(udelal);
+
+    if (canIDoQuiz) {
+
+      get("data", "name = ?", [name]).then((data) => {
+
+        for (let pos = 0; pos < data.length; pos ++) {
+
+
+          if (data[pos].nameOfQuestion === id) {
+
+            console.log(data);
+
+
+            if (data === undefined) {
+              console.log(1);
+              send("completequestion", false);
+            }
+            else {
+              console.log(2);
+              send("completequestion", data[pos])
+            }
+
+
+          }
+
+        }
+
+
+
+
+      })
+
+    }
+    else {
+
+      console.log(3);
+      send("completequestion", "youAlreadyDidThis")
+    }
+
+  })
+
+
+
+}
+  socket.on("hash", function (data) {
+    var q = url.parse(data.u, true);
+    var qdata = q.query;
+
+    ////console.log(qdata.id,"ahoj");
+
+    checkpassword(data.name, data.password).then((password) => {
+
+          if (password) {
+
+            if (qdata.name !== undefined || qdata.id !== undefined) {
+
+              ////console.log("ahoj");
+
+              completequestion(qdata.name, qdata.id, data.name);
+
+            }
+
+          }
+          else {
+            send("password", false)
+          }
+
+
+
+    })
+
+
+
+
+  })
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -204,7 +433,7 @@ function checkpassword(name, password) {
 
    return new Promise((resolve, reject) => {
 
-     get("user", "id", name).then((data) => {
+     get("user", "id = ?", [name]).then((data) => {
 
        if (data[0].password === password) {
 
@@ -363,7 +592,7 @@ function createQuestion(data) {
 
             pool.getConnection((err, connection) => {
                   if(err) throw err
-                  console.log(`connected as id ${connection.threadId}`)
+                  ////console.log(`connected as id ${connection.threadId}`)
 
 
 
@@ -371,9 +600,9 @@ function createQuestion(data) {
                       connection.release() // return the connection to pool
 
                       if(!err) {
-                          console.log(`Beer with the name: ${rows} has been added.`)
+                          ////console.log(`Beer with the name: ${rows} has been added.`)
                       } else {
-                          console.log(err)
+                          ////console.log(err)
                       }
 
                   })
@@ -396,12 +625,12 @@ function createQuestion(data) {
                   connection.query(`INSERT INTO ${data} SET ?`, params, (err, rows) => {
                   connection.release() // return the connection to pool
                   if (!err) {
-                      console.log("this has been add");
+                      ////console.log("this has been add");
                   } else {
-                      console.log(err)
+                      ////console.log(err)
                   }
 
-                  console.log('The data from beer table are:11 \n', rows)
+                  ////console.log('The data from beer table are:11 \n', rows)
 
                   })
               })
@@ -431,12 +660,12 @@ function createQuestion(data) {
                   connection.query(`DELETE FROM ${data} WHERE ${what} = ?`, [value], (err, rows) => {
                       connection.release() // return the connection to pool
                       if (!err) {
-                                        console.log("delete");
+                                        ////console.log("delete");
                       } else {
-                          console.log(err)
+                          ////console.log(err)
                       }
 
-                      console.log('The data from beer table are: \n', rows)
+                      ////console.log('The data from beer table are: \n', rows)
                   })
               })
 
@@ -457,7 +686,7 @@ function createQuestion(data) {
 
           /*get('user',"id", "14").then((data) => {
 
-            console.log(data);
+            ////console.log(data);
 
           })*/
           function get(data, what, value) {
@@ -466,7 +695,7 @@ function createQuestion(data) {
 
                 pool.getConnection((err, connection) => {
                     if(err) throw err
-                    connection.query(`SELECT * FROM ${data} WHERE ${what} = ?`, [value],    (err, rows) => {
+                    connection.query(`SELECT * FROM ${data} WHERE ${what}`, value,    (err, rows) => {
                         connection.release() // return the connection to pool
 
                         if (!err) {

@@ -13,7 +13,7 @@
       const element = document.createElement(tagName);
       console.log(el);
       for (const [key, value] of Object.entries(object)) {
-        if (key === "name" || key === "type" || key === "class" || key === "id" || key === "aria-role" || key === "aria-label") {
+        if (key === "name" || key === "type" || key === "class" || key === "id" || key === "aria-role" || key === "aria-label" || key === "value") {
                 element.setAttribute(key, value);
         }
         else {

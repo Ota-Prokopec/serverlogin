@@ -1,9 +1,18 @@
 
 
 
-socket.on("completequestion", function (data) {
+let scores = {
+  bad:0,
+  good:0
+}
 
-  console.log(data);
+
+
+const array = []
+socket.on("completequestion", function (data) {
+  ////console.log(data);
+
+
 
   if (data === false) {
     errors(err.acount)
@@ -17,7 +26,16 @@ socket.on("completequestion", function (data) {
 
     else {
 
-      createQuiz(data)
+
+                   array.push(data);
+
+                        setTimeout(() => {
+
+                          createQuiz(array)
+
+                        }, 144)
+
+
 
     }
   }
@@ -45,9 +63,13 @@ let localvarriableforloopdata = 0;
 
 function startQuiz(data) {
 
+  //console.log(data);
+
                  if (Array.isArray(data)) {
 
-                      console.log("this is array", data);
+                   userdata.data = data;
+
+                      //console.log("this is array", data);
 
                   writeForQuizToInput(data[localvarriableforloopdata])
                   youclickforquiz(data[localvarriableforloopdata].side, data);
@@ -55,7 +77,7 @@ function startQuiz(data) {
                  }
                  else {
 
-                 console.log("this is not array", data);
+                 //console.log("this is not array", data);
 
                  writeForQuizToInput(data)
 
@@ -65,10 +87,12 @@ function startQuiz(data) {
 
 }
 
-
+let click = true;
 function youclickforquiz(data, value) {
 
-  console.log(value, localvarriableforloopdata);
+
+
+
 
 
   let strana = 0;
@@ -76,10 +100,15 @@ function youclickforquiz(data, value) {
   const card0 = document.getElementById("card0")
   const card1 = document.getElementById("card1")
 
+
+         if (click) {click = false
+
+
   card0.addEventListener("click", function () {
 
-      check(0);
+      check(0);//console.log("card");
       if (value !== undefined) {
+
 
         next(value);
 
@@ -94,19 +123,22 @@ function youclickforquiz(data, value) {
      check(1);
      if (value !== undefined) {
 
+
        next(value);
 
      }
 
 
   })
-
+}
 
 
 
 
 
 function konec() {
+
+  //console.log("konec");
 
   const card = document.getElementById("cardScreen")
   card.style.display = "none"
@@ -124,10 +156,12 @@ function konec() {
 
 function next(value) {
 
+  //console.log(localvarriableforloopdata);
+
 
   if (value !== undefined) {
 
-    if (localvarriableforloopdata > value[localvarriableforloopdata].side-1) {
+    if (localvarriableforloopdata < array.length-1) {
 
 
 
@@ -147,10 +181,7 @@ function next(value) {
 }
 
 
-let scores = {
-  bad:0,
-  good:0
-}
+
 
       function check(value) {
 
@@ -161,7 +192,7 @@ let scores = {
 
           scores.good ++;
 
-          console.log(true);
+          ////console.log(true);
 
         }
         else {
@@ -169,7 +200,7 @@ let scores = {
           reknimiscore(false);
 
           scores.bad ++;
-          console.log(false);
+          ////console.log(false);
         }
 
       }
@@ -182,8 +213,12 @@ let scores = {
 
           function reknimiscore(i) {
 
+            const value = userdata.data
+
+
             if (Array.isArray(value)) {
               socket.emit("score", {password:userdata.password,kdo:userdata.name, komu:value[localvarriableforloopdata].name, file:value[localvarriableforloopdata].nameOfQuestion, question:value[localvarriableforloopdata].question, i:i});
+                  ////console.log(value[localvarriableforloopdata].name);
             }
             else {
               socket.emit("score", {kdo:userdata.name, komu:value.name, file:value.nameOfQuestion, question:value.question, i:i, password:userdata.password});
@@ -199,7 +234,9 @@ let scores = {
 
 function writeForQuizToInput(data) {
 
-  console.log(data);
+  userdata.data = data;
+
+  ////console.log(data);
 
   const otazka = document.getElementById("otazka")
   const answer0 = document.getElementById("text0")
@@ -214,6 +251,8 @@ function writeForQuizToInput(data) {
   answer1.value = data.answer1;
   img0.style.display = "none"
   img1.style.display = "none";
+
+  console.log("img", data.img1, data.img0);
 
   if (data.img0 !== "" && data.img1 !== "") {
 

@@ -46,6 +46,7 @@ socket.on("amILog", function (data) {
 
   if (data) {
     console.log("i am log database");
+    errors("now you are loggined")
   }
   else {
 

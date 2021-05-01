@@ -16,6 +16,9 @@ window.addEventListener("keypress", function () {
 
       questionToDoClick();
 
+      //do display none to table for score user
+      doQuizScoreTable(false)
+
     }
 
 
